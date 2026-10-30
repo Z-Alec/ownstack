@@ -1,0 +1,21 @@
+import { defineStack, opencode, litellm, bedrock } from "ownstack";
+
+export default defineStack({
+  name: "{{name}}", // used in resource names and the ownstack:stack tag
+  aws: { region: "us-east-1" }, // add profile: "..." to use a named AWS profile
+
+  harness: opencode({
+    scope: "project", // writes ./opencode.json
+    model: "primary", // alias for the main model
+  }),
+
+  gateway: litellm({
+    port: 4000,
+    budget: { maxUsd: 20, period: "30d" }, // hard cap on the stack's virtual key
+  }),
+
+  models: {
+    // Replace modelId with a Bedrock model (or inference profile) ID enabled in your account and region.
+    primary: bedrock({ modelId: "us.anthropic.claude-sonnet-4-5-20250929-v1:0" }),
+  },
+});
