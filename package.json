@@ -1,0 +1,50 @@
+{
+  "name": "ownstack",
+  "version": "0.0.1",
+  "description": "Turn one TypeScript config file into a self-owned coding-agent stack in your own cloud account.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "ownstack": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "templates",
+    "policies",
+    "examples"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "dependencies": {
+    "commander": "^15.0.0",
+    "consola": "^3.4.2",
+    "execa": "^10.2.1",
+    "jiti": "^2.7.0",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsup": "^9.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.5"
+  }
+}
