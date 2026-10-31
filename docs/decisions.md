@@ -377,3 +377,7 @@ Notes on the sketch:
 - The `aws:TagKeys` condition on `CreateInferenceProfile` is documented as a supported condition key; that it works for this purpose is untested.
 - SkyPilot's minimal policy assumes the `skypilot-v1` role already exists. Without it, add `iam:CreateRole`, `iam:AttachRolePolicy`, `iam:CreateInstanceProfile` and `iam:AddRoleToInstanceProfile` on those same ARNs, per SkyPilot's optional rule.
 - Source: https://docs.skypilot.ai/en/latest/cloud-setup/cloud-permissions/aws.html
+
+## Decision: GPU access via SSH tunnel (2026-10-31)
+
+Alec chose to keep the vLLM port private: SkyPilot task YAML declares no public `ports`, and the gateway reaches vLLM through an SSH tunnel to the cluster (SkyPilot-managed keys). This replaces the spec's "open only the vLLM port, protected by an API key". The vLLM API key is still set as defense in depth. Implementation details (tunnel lifecycle, how the LiteLLM container reaches the tunnel, re-establishing after restarts) are worked out in M2.
